@@ -1,20 +1,19 @@
 // src/App.js
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Typography,
   Box,
   Tooltip,
-  LinearProgress,
 } from "@mui/material";
 import Automator from "./Automator";
 import Upgrade from "./Upgrade";
 import Cone from "./assets/Cone.png";
+import ProgressBar from "./ProgressBar";
 
 const App = () => {
   const [points, setPoints] = useState(0);
-  const [goal] = useState(1000);
-  const [progress, setProgresss] = useState(0);
+  
   const [automators, setAutomators] = useState({
     count: 0,
     cost: 10,
@@ -62,23 +61,16 @@ const App = () => {
     }
   };
 
-  // Calculate progress
-  const calculateProgress = useCallback(() => {
-    setProgresss((points / goal) * 100);
-    if (points > goal) {
-      setProgresss(100);
-    }
-  }, [goal, points]);
+
 
   // Automator generates points per second
   useEffect(() => {
     const interval = setInterval(() => {
       setPoints((prev) => prev + automators.count * automators.baseOutput);
-      calculateProgress();
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [automators, calculateProgress]);
+  }, [automators]);
 
   return (
     <Container maxWidth="sm">
@@ -92,9 +84,11 @@ const App = () => {
           width: "100vw",
         }}
       >
-        <Box sx={{ width: "100%" }}>
+        {/* <Box sx={{ width: "100%" }}>
           <LinearProgress variant="determinate" value={progress} />
-        </Box>
+        </Box> */}
+        <ProgressBar points={points} />
+
         <Typography variant="h4">Idle Game</Typography>
         <Typography variant="h5" sx={{ marginBottom: 3 }}>
           Points: {points}
