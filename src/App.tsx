@@ -5,6 +5,7 @@ import {
   Typography,
   Box,
   Tooltip,
+  Button,
 } from "@mui/material";
 import Automator from "./Automator";
 import Upgrade from "./Upgrade";
@@ -29,6 +30,10 @@ const App = () => {
   // Clicking the screen adds points
   const handleClick = () => {
     setPoints((prev) => prev + 1);
+  };
+  //Todo Dev button remove later
+  const devHandleClick = () => {
+    setPoints((prev) => prev + 100);
   };
 
   // Buying an automator
@@ -110,6 +115,7 @@ const App = () => {
             onClick={handleClick}
           />
         </Tooltip>
+        <Button onClick={devHandleClick}>Add 100 Points</Button>
 
         {/* Automator Component */}
         <Automator

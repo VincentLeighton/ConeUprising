@@ -52,21 +52,27 @@ const ProressBar: FC<ProgressBarProps> = ({ points }) => {
           backgroundColor: "lightgray",
         }}
       >
-        {rectangles.map((e, index: number) => (
-          <motion.div
-            initial={{ x: "110vw" }} // Start off-screen to the left
-            animate={{ x: 0 }} // End at the original position
-            transition={{ duration: 0.5, ease: "easeInOut" }} // Animation properties
-            key={index}
-            style={{
-              // blocks 10% of the progress bar
-              width: "10%",
-              height: 100,
-              backgroundColor: "green",
-              margin: 3,
-            }}
-          />
-        ))}
+        {rectangles.map((_e, index: number) => {
+          return (
+            <motion.div
+              initial={{ x: "110vw" }} // Start off-screen to the left
+              animate={{ x: 0 }} // End on the left side of the progress bar
+              transition={{ duration: 0.5, ease: "easeInOut" }} // Animation properties
+              onAnimationComplete={(a) => {
+                console.log(a);
+                
+              }}
+              key={index}
+              style={{
+                // blocks 10% width of the progress bar
+                width: "10%",
+                height: 100,
+                backgroundColor: "green",
+                margin: 3,
+              }}
+            />
+          );
+        })}
       </Box>
       <LinearProgress variant="determinate" value={progress} />
       <Typography variant="h6">{progress.toFixed(2)}% to goal</Typography>
